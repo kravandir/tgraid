@@ -9,9 +9,9 @@ class Register:
         try:
             with TelegramClient("tgaccs/" + name, 1236408, '1a96dab32bad4e7cb7d2e28887d59f1f') as client:
                 client.connect()
-            print('Рега удалась!')
+            print('The account has been registered!')
         except:
-            print('Ошибка в реге')
+            print('Error in register!')
 
     @staticmethod
     def checkcode(name):
@@ -30,12 +30,12 @@ class Register:
 
     @staticmethod
     def checkvalidation(acc):
-        print("Проверка " + acc + "...")
+        print("Checking " + acc)
         try:
             with TelegramClient("tgaccs/" + acc, 1236408, '1a96dab32bad4e7cb7d2e28887d59f1f') as client:
                 client.connect()
-            print('Работает')
+            print('Valid')
             return True
         except:
-            print('Ошибка в реге')
+            print('Invalid')
             return False

@@ -24,12 +24,12 @@ class PrepareRaid:
     def questions(qtype):
         answlist = []
         if qtype:
-            print('Придумай фразу или символ, которым активируешь ботов:')
+            print('Type the word whitch will launch the bots:')
             answlist.append(input())
         else:
             answlist.append('')
-        answlist.append(int(input('Спамить:\n1.Быстро\n2.Медленно\n')))
-        answlist.append(int(input('1.Спам текстом\n2.Спам файлами\n')))
+        answlist.append(int(input('Spam mode:\n1.Fast\n2.Slow\n')))
+        answlist.append(int(input('1.Spam via the text\n2.Spam via the files\n')))
         return answlist
 
 
@@ -58,9 +58,9 @@ class LsRaid(Thread):
                         client(functions.messages.SendMessageRequest(peer=self.idtg, message=self.msgs))
                 else:
                     client.send_file(self.idtg, "raidfiles/" + random.choice(self.msgs))
-                print(f"[LS RAID] Отправлено {k} раз!")
+                print(f"[LS RAID] Sent {k} times!")
             except:
-                print(f"[LS RAID] Отправлено c ошибкой {k} раз!")
+                print(f"[LS RAID] Error!")
             k += 1
             time.sleep(0.5)
         client.run_until_disconnected()
@@ -103,9 +103,9 @@ class TgBot(Thread):
                                     time.sleep(random.randint(1, 3))
                                 else:
                                     time.sleep(0.5)
-                                print(f"[GROUP RAID] Отправлено {k} раз!")
+                                print(f"[GROUP RAID] Sent {k} times!")
                             except:
-                                print(f"[GROUP RAID] Отправлено c ошибкой {k} раз!")
+                                print(f"[GROUP RAID] Error!")
                             k += 1
                 client.start()
                 client.run_until_disconnected()
@@ -125,9 +125,9 @@ class TgBot(Thread):
                         time.sleep(random.randint(1, 3))
                     else:
                         time.sleep(0.5)
-                    print(f"[GROUP RAID] Отправлено {i} раз!")
+                    print(f"[GROUP RAID] Sent {i} times!")
                 except:
-                    print(f"[GROUP RAID] Отправлено c ошибкой {i} раз!")
+                    print(f"[GROUP RAID] Error!")
                 i += 1
             client.start()
             client.run_until_disconnected()
@@ -161,11 +161,11 @@ class ConfJoin:
                     if self.bs[13:22] == 'joinchat/':
                         a = client(functions.messages.ImportChatInviteRequest(hash=self.bs[22:]))
                         idtg = -1 * a.updates[1].participants.chat_id
-                print("{0} зашёл!".format(
+                print("{0} joined the chat!".format(
                     self.accs1[x][:self.accs1[x].find(".")]))
                 del client
             except:
-                print("{0} не зашёл!".format(
+                print("{0} Error in joining the chat!".format(
                     self.accs1[x][:self.accs1[x].find(".")]))
             if self.f == 2:
                 time.sleep(random.randint(1, 3))
