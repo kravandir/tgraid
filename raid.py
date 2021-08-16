@@ -82,7 +82,7 @@ while True:
                 msg_tp = int(input("1.Spam via random worlds from args.txt\n2.Spam via repeating word from message.txt\n\n"))
                 msg = tgraid.PrepareRaid().msgs_type(msg_tp)
             else:
-                msg_tp = 0
+                msg_tp = 1
                 msg = os.listdir('raidfiles')
             accs = os.listdir('tgaccs')
             for acc in accs:
