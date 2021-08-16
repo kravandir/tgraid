@@ -16,8 +16,8 @@ class Set:
                     client.connect()
                     client(UpdateProfileRequest(about=bio_text))
                 print(f'The bio has been updated on {tg_acc}')
-            except:
-                pass
+            except Exception as e:
+                print(f'Error:\n{e}')
 
     def avatar(self):
         for tg_acc in self.tg_accounts:
@@ -28,5 +28,5 @@ class Set:
                     upl = client.upload_file(r_file)
                     client(UploadProfilePhotoRequest(upl))
                     print(f'The avatar has been updated on {tg_acc}')
-            except:
-                pass
+            except Exception as e:
+                print(f'Error:\n{e}')

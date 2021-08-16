@@ -59,8 +59,8 @@ class LsRaid(Thread):
                 else:
                     client.send_file(self.idtg, "raidfiles/" + random.choice(self.msgs))
                 print(f"[LS RAID] Sent {k} times!")
-            except:
-                print(f"[LS RAID] Error!")
+            except Exception as e:
+                print(f"[LS RAID] Error:\n{e}")
             k += 1
             time.sleep(0.5)
         client.run_until_disconnected()
@@ -126,13 +126,13 @@ class TgBot(Thread):
                     else:
                         time.sleep(0.5)
                     print(f"[GROUP RAID] Sent {i} times!")
-                except:
-                    print(f"[GROUP RAID] Error!")
+                except Exception as e:
+                    print(f"[GROUP RAID] Error:\n{e}")
                 i += 1
             client.start()
             client.run_until_disconnected()
-        except:
-            pass
+        except Exception as e:
+            print(f"Error:\n{e}")
 
 
 class ConfJoin:
@@ -164,9 +164,8 @@ class ConfJoin:
                 print("{0} joined the chat!".format(
                     self.accs1[x][:self.accs1[x].find(".")]))
                 del client
-            except:
-                print("{0} Error in joining the chat!".format(
-                    self.accs1[x][:self.accs1[x].find(".")]))
+            except Exception as e:
+                print(f"{self.accs1[x]} Error in joining the chat:\n{e}")
             if self.f == 2:
                 time.sleep(random.randint(1, 3))
         return idtg

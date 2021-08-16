@@ -10,8 +10,8 @@ class Register:
             with TelegramClient("tgaccs/" + name, 1236408, '1a96dab32bad4e7cb7d2e28887d59f1f') as client:
                 client.connect()
             print('The account has been registered!')
-        except:
-            print('Error in register!')
+        except Exception as e:
+            print(f'Error:\n{e}')
 
     @staticmethod
     def checkcode(name):
@@ -36,6 +36,6 @@ class Register:
                 client.connect()
             print('Valid')
             return True
-        except:
-            print('Invalid')
+        except Exception as e:
+            print(f'Invalid\n{e}')
             return False
