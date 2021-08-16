@@ -2,13 +2,13 @@ import os
 from sys import platform
 from raidfunctions import register, tgraid, additional
 menu = \
-    'Выход в главное меню [ENTER]'\
-    '\nВыберите функцию:\n\n'\
-    '0.Зарегистрировать аккаунты\n'\
-    '1.Запустить спам\n'\
-    '2.Зайти в беседу\n'\
-    '3.Рейд в лс\n'\
-    '4.Дополнительно\n'
+    'Return to main menu [ENTER]'\
+    '\nChange function:\n\n'\
+    '0.Register accounts\n'\
+    '1.Lauch spam attack to chat\n'\
+    '2.Join a chat\n'\
+    '3.Launch spam attack to user\n'\
+    '4.More\n'
 
 if platform in ('linux', 'linux2'):
     os.system('rm tgaccs/*.session-journal')
@@ -22,24 +22,24 @@ def start_spam(raidconn):
         q = True
         chat = 0
     else:
-        bs = input('Введите ссылку на беседу:\n')
-        f = int(input('Спамить:\n1.Быстро\n2.Медленно\n'))
+        bs = input('Type chat link:\n')
+        f = int(input('Spam speed:\n1.Fast\n2.Slow\n'))
         chat = tgraid.ConfJoin(tg_accounts, bs, f).join()
         q = False
     answ = tgraid.PrepareRaid().questions(qtype=q)
     if answ[2] == 1:
-        msg_type = int(input('1.Спамить фразами из args.txt\n2.Спамить повторными фразами из message.txt\n\n'))
+        msg_type = int(input('1.Spamming with random words from args.txt\n2.Spamming with repeating text from message.txt\n\n'))
         for i in tg_accounts:
-            print("Спам с {0} акка запущен!".format(i))
+            print("Spam has been launched from the {0} account!".format(i))
             ms_type = tgraid.PrepareRaid().msgs_type(msg_tp=msg_type)
             tgraid.TgBot(i, answ[2], '', ms_type, answ[0], msg_type, answ[1], chat).start()
     if answ[2] == 2:
-        print('Будет спамить файлами, которые лежат в raidfiles')
+        print('It will be spamming using files from raidfiles')
         fl = os.listdir('raidfiles')
         for i in tg_accounts:
-            print("Спам с {0} акка запущен!".format(i))
+            print("Spam has been launched from the {0} account!".format(i))
             tgraid.TgBot(i, answ[2], fl, [], answ[0], 0, answ[1], chat).start()
-    print(f'Боты активированы!\nОтправьте команду "{answ[0]}" для призыва ботов')
+    print(f'Bots has been activated!\nSend the command "{answ[0]}" for launching them!')
 
 
 while True:
@@ -48,17 +48,16 @@ while True:
         if a == 0:
             while True:
                 print(
-                    '1)Ввести аккаунт\n'
-                    '2)Получить код для доступа через сессию\n'
-                    '3)Проверить акк на валидность\n'
-                    '4)Выйти из реги\n\n')
+                    '1)Enter an account\n'
+                    '2)Find a code for access in telegram app using a session file\n'
+                    "3)Check accounts' validation\n"
+                    '4)Exit from registration\n\n')
                 b = int(input())
                 if b == 1:
-                    name = input('Напишите никнейм бота:\n')
+                    name = input("Type bot's phone:\n")
                     register.Register().regaccountreg(name)
                 elif b == 2:
-                    print(
-                        'Введите никнейм бота или перетащите файл сессии\n')
+                    print("Type bot's phone\n")
                     name = input()
                     register.Register().checkcode(name)
                 elif b == 3:
@@ -67,7 +66,7 @@ while True:
                         try:
                             res = register.Register().checkvalidation(x)
                             if not res:
-                                print("Удалите файл {0}. Он нерабочий".format(x))
+                                print("Invalid account {0}".format(x))
                         except:
                             pass
                 elif b == 4:
@@ -77,28 +76,28 @@ while True:
         elif a == 2:
             start_spam(True)
         elif a == 3:
-            idtg = input("Введи айди телеграм\n")
-            spam_type = int(input("1.Спам текстом\n2.Спам файлами\n"))
+            idtg = input("Enter person's username\n")
+            spam_type = int(input("1.Spam via the text\n2.Spam via the files\n"))
             if spam_type == 1:
-                msg_tp = int(input("1.Спам из args.txt\n2.Спам из message.txt\n\n"))
+                msg_tp = int(input("1.Spam via random worlds from args.txt\n2.Spam via repeating word from message.txt\n\n"))
                 msg = tgraid.PrepareRaid().msgs_type(msg_tp)
             else:
                 msg_tp = 0
                 msg = os.listdir('raidfiles')
             accs = os.listdir('tgaccs')
             for acc in accs:
-                print("Спам с {0} акка запущен!".format(acc))
+                print("Spam has been launched from the {0} account!".format(acc))
                 tgraid.LsRaid(idtg, acc, msg_tp, msg, spam_type).start()
         elif a == 4:
             tg_accs = os.listdir('tgaccs')
             set_tg = additional.Set(tg_accs)
             while True:
-                print('1.Установить BIO аккаунтам\n'
-                      '2.Установить аватарки аккаунтам\n')
+                print('1.Change BIO to accounts\n'
+                      '2.Set avatars to accounts\n')
                 try:
                     a = int(input())
                     if a == 1:
-                        bio_text = input("Введите текст для bio: ")
+                        bio_text = input("Type the text from your bio: ")
                         set_tg.bio(bio_text)
                     if a == 2:
                         set_tg.avatar()
