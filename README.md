@@ -1,3 +1,4 @@
+квася соси
 # RAID BOTNET FOR TELEGRAM
 
 ### INSTALLATION
